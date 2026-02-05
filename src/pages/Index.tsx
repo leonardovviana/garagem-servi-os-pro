@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { ServiceCard } from "@/components/ServiceCard";
+import { PortfolioCarousel } from "@/components/PortfolioCarousel";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { StickyCTA } from "@/components/StickyCTA";
@@ -66,6 +67,8 @@ const Index = () => {
             ))}
           </div>
         </section>
+
+        <PortfolioCarousel />
 
         <Footer />
       </main>
