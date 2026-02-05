@@ -1,19 +1,21 @@
 import { useState } from "react";
-import { MessageCircle } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import { Service, generateWhatsAppLink } from "@/data/services";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { SelectablePill } from "./SelectablePill";
+import { Service } from "@/data/services";
 import { cn } from "@/lib/utils";
 
 interface ServiceCardProps {
   service: Service;
+  index: number;
+  onSelectionChange: (serviceId: string, selections: Set<string>) => void;
 }
 
-export function ServiceCard({ service }: ServiceCardProps) {
+export function ServiceCard({ service, index, onSelectionChange }: ServiceCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
 
-  const handleOptionToggle = (optionId: string, optionLabel: string) => {
+  const handleOptionToggle = (optionLabel: string) => {
     setSelectedOptions((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(optionLabel)) {
@@ -21,78 +23,118 @@ export function ServiceCard({ service }: ServiceCardProps) {
       } else {
         newSet.add(optionLabel);
       }
+      onSelectionChange(service.id, newSet);
       return newSet;
     });
-  };
-
-  const handleWhatsAppClick = () => {
-    const link = generateWhatsAppLink(service.name, Array.from(selectedOptions));
-    window.open(link, "_blank");
   };
 
   const Icon = service.icon;
   const hasSelections = selectedOptions.size > 0;
 
   return (
-    <Accordion type="single" collapsible className="w-full">
-      <AccordionItem
-        value={service.id}
-        className="border border-border rounded-lg bg-card overflow-hidden transition-all hover:border-primary/50"
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+    >
+      <motion.div
+        className={cn(
+          "glass-card rounded-xl overflow-hidden transition-all duration-500",
+          isExpanded && "glass-card-hover glow-gold"
+        )}
+        layout
       >
-        <AccordionTrigger className="px-4 py-5 hover:no-underline group">
+        {/* Card Header */}
+        <motion.button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="w-full px-5 py-6 flex items-center justify-between group"
+          whileTap={{ scale: 0.99 }}
+        >
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 border border-primary/30 group-hover:shadow-gold transition-shadow">
-              <Icon className="h-6 w-6 text-primary" />
-            </div>
+            <motion.div 
+              className={cn(
+                "flex h-14 w-14 items-center justify-center rounded-xl transition-all duration-300",
+                isExpanded 
+                  ? "bg-primary/20 border border-primary/50 glow-gold" 
+                  : "bg-secondary/50 border border-border/50 group-hover:border-primary/30"
+              )}
+              animate={{ 
+                scale: isExpanded ? 1.05 : 1,
+              }}
+            >
+              <Icon className={cn(
+                "h-7 w-7 transition-colors duration-300",
+                isExpanded ? "text-primary" : "text-muted-foreground group-hover:text-primary"
+              )} />
+            </motion.div>
+            
             <div className="text-left">
-              <h3 className="font-bold text-sm uppercase tracking-wide text-foreground">
+              <h3 className={cn(
+                "font-display text-base font-semibold tracking-wide transition-colors duration-300",
+                isExpanded ? "text-gold-gradient" : "text-foreground"
+              )}>
                 {service.name}
               </h3>
               <p className="text-xs text-muted-foreground mt-0.5">
-                {service.options.length} opções disponíveis
+                {hasSelections 
+                  ? `${selectedOptions.size} ${selectedOptions.size === 1 ? "item selecionado" : "itens selecionados"}`
+                  : `${service.options.length} opções`
+                }
               </p>
             </div>
           </div>
-        </AccordionTrigger>
-        <AccordionContent className="px-4 pb-5">
-          <div className="space-y-3 pt-2">
-            {service.options.map((option) => (
-              <label
-                key={option.id}
-                className={cn(
-                  "flex items-center gap-3 p-3 rounded-md cursor-pointer transition-all",
-                  "border border-border hover:border-primary/40 hover:bg-secondary/50",
-                  selectedOptions.has(option.label) && "border-primary bg-primary/5"
-                )}
-              >
-                <Checkbox
-                  id={option.id}
-                  checked={selectedOptions.has(option.label)}
-                  onCheckedChange={() => handleOptionToggle(option.id, option.label)}
-                  className="border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
-                />
-                <span className="text-sm text-foreground flex-1">{option.label}</span>
-              </label>
-            ))}
-          </div>
 
-          {hasSelections && (
-            <Button
-              onClick={handleWhatsAppClick}
-              className="w-full mt-5 h-12 text-sm font-bold uppercase tracking-wide bg-primary hover:bg-primary/90 text-primary-foreground shadow-gold"
+          <motion.div
+            animate={{ rotate: isExpanded ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+            className={cn(
+              "w-8 h-8 rounded-full flex items-center justify-center transition-colors",
+              isExpanded ? "bg-primary/20" : "bg-secondary/50"
+            )}
+          >
+            <ChevronDown className={cn(
+              "h-5 w-5 transition-colors",
+              isExpanded ? "text-primary" : "text-muted-foreground"
+            )} />
+          </motion.div>
+        </motion.button>
+
+        {/* Expandable Content */}
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="overflow-hidden"
             >
-              <MessageCircle className="h-5 w-5 mr-2" />
-              Solicitar Orçamento no WhatsApp
-            </Button>
+              <div className="px-5 pb-6">
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mb-5" />
+                
+                {/* Pills Grid */}
+                <div className="flex flex-wrap gap-2">
+                  {service.options.map((option, optIndex) => (
+                    <motion.div
+                      key={option.id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: optIndex * 0.05 }}
+                    >
+                      <SelectablePill
+                        label={option.label}
+                        selected={selectedOptions.has(option.label)}
+                        onToggle={() => handleOptionToggle(option.label)}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           )}
-
-          {hasSelections && (
-            <p className="text-center text-xs text-muted-foreground mt-2">
-              {selectedOptions.size} {selectedOptions.size === 1 ? "item selecionado" : "itens selecionados"}
-            </p>
-          )}
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
   );
 }
