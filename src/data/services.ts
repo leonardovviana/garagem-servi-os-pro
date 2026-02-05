@@ -23,6 +23,7 @@ export const services: Service[] = [
       { id: "pintura", label: "Pintura" },
       { id: "desempeno", label: "Desempeno" },
       { id: "solda-roda", label: "Solda" },
+      { id: "outros", label: "Outros" },
     ],
   },
   {
@@ -35,6 +36,7 @@ export const services: Service[] = [
       { id: "reboque-barco", label: "Reboque para Barco/Jet Ski" },
       { id: "reboque-moto", label: "Reboque para Moto" },
       { id: "food-truck", label: "Food Truck / Trailer" },
+      { id: "outros", label: "Outros" },
     ],
   },
   {
@@ -47,6 +49,7 @@ export const services: Service[] = [
       { id: "estruturas", label: "Estruturas Metálicas (Telhados)" },
       { id: "corrimao", label: "Corrimão e Guarda-corpo" },
       { id: "solda-geral", label: "Serviços de Solda em Geral" },
+      { id: "outros", label: "Outros" },
     ],
   },
   {
@@ -58,6 +61,7 @@ export const services: Service[] = [
       { id: "prateleira-estoque", label: "Prateleira para Estoque" },
       { id: "expositor", label: "Expositor Comercial" },
       { id: "armario-aco", label: "Armário de Aço" },
+      { id: "outros", label: "Outros" },
       { id: "projeto-medida", label: "Projeto Sob Medida" },
     ],
   },
@@ -69,6 +73,7 @@ export const services: Service[] = [
       { id: "pecas-especiais", label: "Confecção de Peças Especiais" },
       { id: "retifica", label: "Retífica de Discos/Tambores" },
       { id: "roscas", label: "Abertura de Roscas" },
+      { id: "outros", label: "Outros" },
       { id: "eixos", label: "Recuperação de Eixos" },
       { id: "fresagem", label: "Fresagem" },
     ],

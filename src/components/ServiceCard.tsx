@@ -4,6 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { SelectablePill } from "./SelectablePill";
 import { Service } from "@/data/services";
 import { cn } from "@/lib/utils";
+import { Input } from "./ui/input";
 
 interface ServiceCardProps {
   service: Service;
@@ -14,15 +15,53 @@ interface ServiceCardProps {
 export function ServiceCard({ service, index, onSelectionChange }: ServiceCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
+  const [customText, setCustomText] = useState<string>("");
 
-  const handleOptionToggle = (optionLabel: string) => {
+  const handleOptionToggle = (optionLabel: string, optionId: string) => {
     setSelectedOptions((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(optionLabel)) {
-        newSet.delete(optionLabel);
+      
+      // If toggling "Outros"
+      if (optionId === "outros") {
+        if (newSet.has("Outros")) {
+          // Remove "Outros" and clear custom text
+          newSet.delete("Outros");
+          setCustomText("");
+        } else {
+          // Add "Outros"
+          newSet.add("Outros");
+        }
       } else {
-        newSet.add(optionLabel);
+        // Regular option toggle
+        if (newSet.has(optionLabel)) {
+          newSet.delete(optionLabel);
+        } else {
+          newSet.add(optionLabel);
+        }
       }
+      
+      onSelectionChange(service.id, newSet);
+      return newSet;
+    });
+  };
+
+  const handleCustomTextChange = (text: string) => {
+    setCustomText(text);
+    setSelectedOptions((prev) => {
+      const newSet = new Set(prev);
+      
+      // Remove old "Outros: ..." entries
+      const otherEntries = Array.from(newSet).filter(item => item.startsWith("Outros:"));
+      otherEntries.forEach(entry => newSet.delete(entry));
+      
+      // Add new one if text is not empty
+      if (text.trim()) {
+        newSet.add(`Outros: ${text.trim()}`);
+      } else if (newSet.has("Outros")) {
+        // Keep the simple "Outros" if just that is selected
+        // (already there from toggle)
+      }
+      
       onSelectionChange(service.id, newSet);
       return newSet;
     });
@@ -30,6 +69,7 @@ export function ServiceCard({ service, index, onSelectionChange }: ServiceCardPr
 
   const Icon = service.icon;
   const hasSelections = selectedOptions.size > 0;
+  const isOutrosSelected = selectedOptions.has("Outros") || Array.from(selectedOptions).some(item => item.startsWith("Outros:"));
 
   return (
     <motion.div
@@ -114,7 +154,7 @@ export function ServiceCard({ service, index, onSelectionChange }: ServiceCardPr
                 <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mb-5" />
                 
                 {/* Pills Grid */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {service.options.map((option, optIndex) => (
                     <motion.div
                       key={option.id}
@@ -124,12 +164,37 @@ export function ServiceCard({ service, index, onSelectionChange }: ServiceCardPr
                     >
                       <SelectablePill
                         label={option.label}
-                        selected={selectedOptions.has(option.label)}
-                        onToggle={() => handleOptionToggle(option.label)}
+                        selected={option.id === "outros" ? isOutrosSelected : selectedOptions.has(option.label)}
+                        onToggle={() => handleOptionToggle(option.label, option.id)}
                       />
                     </motion.div>
                   ))}
                 </div>
+
+                {/* Custom Text Input for "Outros" */}
+                <AnimatePresence>
+                  {isOutrosSelected && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="mt-4 pt-4 border-t border-border/50">
+                        <label className="text-xs text-muted-foreground block mb-2">
+                          Descreva o serviço desejado:
+                        </label>
+                        <Input
+                          type="text"
+                          placeholder="Ex: Solda personalizada, peça especial, etc..."
+                          value={customText}
+                          onChange={(e) => handleCustomTextChange(e.target.value)}
+                          className="bg-secondary/50 border-border/50"
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </motion.div>
           )}

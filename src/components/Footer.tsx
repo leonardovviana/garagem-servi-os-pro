@@ -26,9 +26,9 @@ export function Footer() {
             </div>
             <div className="text-muted-foreground">
               <p className="font-medium text-foreground mb-1">Endereço</p>
-              <p>Rua Principal, 123 - Centro</p>
+              <p>Rua Manoel Virgínio Sobrinho, 2023 - Padre Pedro Pereira</p>
               <p>Afogados da Ingazeira - PE</p>
-              <p>CEP: 56800-000</p>
+              <p>Próximo ao trevo na saída para Carnaíba</p>
             </div>
           </motion.div>
 
@@ -42,7 +42,7 @@ export function Footer() {
             </div>
             <div className="text-muted-foreground">
               <p className="font-medium text-foreground mb-1">Horário</p>
-              <p>Segunda a Sexta: 8h às 18h</p>
+              <p>Segunda a Sexta: 7h às 17h</p>
               <p>Sábado: 8h às 12h</p>
             </div>
           </motion.div>
