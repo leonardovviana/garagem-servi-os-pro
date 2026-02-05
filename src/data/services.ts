@@ -1,4 +1,4 @@
-import { Disc, Truck, Hammer, Library, Cog, LucideIcon } from "lucide-react";
+import { CircleDotDashed, Caravan, Hammer, Table, Cog, LucideIcon } from "lucide-react";
 
 export interface ServiceOption {
   id: string;
@@ -16,7 +16,7 @@ export const services: Service[] = [
   {
     id: "recuperacao-roda",
     name: "RECUPERAÇÃO DE RODA",
-    icon: Disc,
+    icon: CircleDotDashed,
     options: [
       { id: "recuperacao-completa", label: "Recuperação completa" },
       { id: "diamantacao", label: "Diamantação" },
@@ -28,7 +28,7 @@ export const services: Service[] = [
   {
     id: "fabricacao-reboque",
     name: "FABRICAÇÃO DE REBOQUE",
-    icon: Truck,
+    icon: Caravan,
     options: [
       { id: "reboque-1-eixo", label: "Reboque 1 Eixo (Carretinha)" },
       { id: "reboque-2-eixos", label: "Reboque 2 Eixos (Carga pesada)" },
@@ -52,7 +52,7 @@ export const services: Service[] = [
   {
     id: "estantes-aco",
     name: "ESTANTES DE AÇO",
-    icon: Library,
+    icon: Table,
     options: [
       { id: "estante-industrial", label: "Estante Industrial Reforçada" },
       { id: "prateleira-estoque", label: "Prateleira para Estoque" },
