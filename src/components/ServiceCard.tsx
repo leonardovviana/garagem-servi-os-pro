@@ -23,9 +23,13 @@ export function ServiceCard({ service, index, onSelectionChange }: ServiceCardPr
       
       // If toggling "Outros"
       if (optionId === "outros") {
-        if (newSet.has("Outros")) {
-          // Remove "Outros" and clear custom text
+        const isOutrosCurrentlySelected = newSet.has("Outros") || Array.from(newSet).some(item => item.startsWith("Outros:"));
+        
+        if (isOutrosCurrentlySelected) {
+          // Remove "Outros" and all "Outros: ..." entries, and clear custom text
           newSet.delete("Outros");
+          const otherEntries = Array.from(newSet).filter(item => item.startsWith("Outros:"));
+          otherEntries.forEach(entry => newSet.delete(entry));
           setCustomText("");
         } else {
           // Add "Outros"
@@ -49,19 +53,21 @@ export function ServiceCard({ service, index, onSelectionChange }: ServiceCardPr
     setCustomText(text);
     setSelectedOptions((prev) => {
       const newSet = new Set(prev);
-      
+
       // Remove old "Outros: ..." entries
       const otherEntries = Array.from(newSet).filter(item => item.startsWith("Outros:"));
       otherEntries.forEach(entry => newSet.delete(entry));
-      
-      // Add new one if text is not empty
+
+      // If there is text, ensure only the detailed "Outros: ..." remains
       if (text.trim()) {
+        // remove plain "Outros" and add the detailed entry
+        newSet.delete("Outros");
         newSet.add(`Outros: ${text.trim()}`);
-      } else if (newSet.has("Outros")) {
-        // Keep the simple "Outros" if just that is selected
-        // (already there from toggle)
+      } else {
+        // If text cleared, keep plain "Outros" only if it was previously toggled on
+        // (user can toggle the plain option via the pill)
       }
-      
+
       onSelectionChange(service.id, newSet);
       return newSet;
     });

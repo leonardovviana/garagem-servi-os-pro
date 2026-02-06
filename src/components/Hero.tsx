@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import heroImage from "@/assets/hero-welding.jpg";
+import heroImage from "@/assets/frente.jpeg";
 
 export function Hero() {
   return (
-    <section className="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden">
+    <section className="relative h-[20vh] min-h-[800px] flex items-end overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img 
@@ -28,7 +28,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            SOLUÇÕES EM METAL
+           GARAGEM SERVIÇOS
           </motion.h2>
           
           <motion.p 
@@ -37,7 +37,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            Recuperação Automotiva & Industrial
+            Recuperação de rodas, fabricação de reboques e serralheria em geral.
           </motion.p>
           
           <motion.p 

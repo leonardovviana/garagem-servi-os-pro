@@ -5,11 +5,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Import portfolio images
-import welding1 from "@/assets/portfolio/welding-1.jpg";
-import wheel1 from "@/assets/portfolio/wheel-1.jpg";
-import metalwork1 from "@/assets/portfolio/metalwork-1.jpg";
-import gate1 from "@/assets/portfolio/gate-1.jpg";
-import trailer1 from "@/assets/portfolio/trailer-1.jpg";
+import welding1 from "@/assets/portfolio/solda.png";
+import wheel1 from "@/assets/portfolio/rodas1.png";
+import metalwork1 from "@/assets/portfolio/estrutura.png";
+import gate1 from "@/assets/portfolio/estante.png";
+import trailer1 from "@/assets/portfolio/reboque.png";
 
 interface PortfolioItem {
   id: string;
@@ -19,10 +19,10 @@ interface PortfolioItem {
 }
 
 const portfolioItems: PortfolioItem[] = [
-  { id: "1", image: welding1, title: "Solda Especializada", category: "Serralheria" },
-  { id: "2", image: wheel1, title: "Roda Esportiva Recuperada", category: "Recuperação de Roda" },
+  { id: "1", image: welding1, title: "Solda Profissional", category: "Serralheria" },
+  { id: "2", image: wheel1, title: "Serviços de Rodas", category: "Recuperação de Roda" },
   { id: "3", image: metalwork1, title: "Estrutura Metálica", category: "Serralheria" },
-  { id: "4", image: gate1, title: "Portão Automático", category: "Serralheria" },
+  { id: "4", image: gate1, title: "Estantes de Aço", category: "Serralheria" },
   { id: "5", image: trailer1, title: "Reboque Personalizado", category: "Fabricação de Reboque" },
 ];
 
