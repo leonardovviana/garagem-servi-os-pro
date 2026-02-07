@@ -81,7 +81,7 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicato */}
       <motion.div 
         className="absolute bottom-12 left-30 -translate-x-1/2 text-white/60 flex flex-col items-center gap-3 cursor-pointer"
         initial={{ opacity: 0 }}
