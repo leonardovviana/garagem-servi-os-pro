@@ -83,8 +83,13 @@ export default {
           "0%, 100%": { boxShadow: "0 0 20px hsla(43, 74%, 49%, 0.3)" },
           "50%": { boxShadow: "0 0 40px hsla(43, 74%, 49%, 0.5)" },
         },
+        "text-shimmer": {
+          "0%": { backgroundPosition: "0 0" },
+          "100%": { backgroundPosition: "-200% 0" },
+        },
       },
       animation: {
+        "text-shimmer": "text-shimmer 3s linear infinite",
         "accordion-down": "accordion-down 0.3s ease-out",
         "accordion-up": "accordion-up 0.3s ease-out",
         "fade-in-up": "fade-in-up 0.6s ease-out",

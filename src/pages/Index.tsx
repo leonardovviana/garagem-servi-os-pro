@@ -1,14 +1,15 @@
-import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
+import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { ServiceCard } from "@/components/ServiceCard";
-import { PortfolioCarousel } from "@/components/PortfolioCarousel";
 import { InstagramCTA } from "@/components/InstagramCTA";
-import { Footer } from "@/components/Footer";
-import { WhatsAppFab } from "@/components/WhatsAppFab";
+import { PortfolioCarousel } from "@/components/PortfolioCarousel";
+import { ServiceCard } from "@/components/ServiceCard";
+import { StatsSection } from "@/components/StatsSection";
 import { StickyCTA } from "@/components/StickyCTA";
+import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { services } from "@/data/services";
+import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
 
 const Index = () => {
   const [selectedServices, setSelectedServices] = useState<Map<string, Set<string>>>(new Map());
@@ -68,6 +69,8 @@ const Index = () => {
             ))}
           </div>
         </section>
+
+        <StatsSection />
 
         <PortfolioCarousel />
 

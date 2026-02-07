@@ -1,4 +1,4 @@
-import { CircleDotDashed, Caravan, Hammer, Table, Cog, LucideIcon } from "lucide-react";
+import { Caravan, CircleDotDashed, Cog, Hammer, LucideIcon, Table } from "lucide-react";
 
 export interface ServiceOption {
   id: string;
