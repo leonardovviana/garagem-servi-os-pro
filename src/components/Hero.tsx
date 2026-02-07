@@ -83,7 +83,7 @@ export function Hero() {
 
       {/* Scroll Indicator */}
       <motion.div 
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/60 flex flex-col items-center gap-3 cursor-pointer"
+        className="absolute bottom-12 left-30 -translate-x-1/2 text-white/60 flex flex-col items-center gap-3 cursor-pointer"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity, delay: 1 }}
@@ -92,7 +92,7 @@ export function Hero() {
           element?.scrollIntoView({ behavior: 'smooth' });
         }}
       >
-        <span className="text-xs uppercase tracking-[0.2em] font-medium text-white/80">Explorar Serviços</span>
+        <span className="block w-full text-center text-xs uppercase tracking-[0.2em] font-medium text-white/80">Explorar Serviços</span>
         <ChevronDown className="w-8 h-8 text-primary animate-pulse" />
       </motion.div>
     </section>

@@ -1,6 +1,4 @@
-import wheel1 from "@/assets/portfolio/rodas1.png";
-import welding1 from "@/assets/portfolio/solda.png";
-import heroImage from "@/assets/portfolio/welding-1.jpg";
+import instagramMockup from "@/assets/instagram.jpeg";
 import { motion } from "framer-motion";
 import { ArrowRight, Instagram, Smartphone } from "lucide-react";
 
@@ -55,9 +53,7 @@ export function InstagramCTA() {
                   Seguir no Instagram
                 </motion.a>
                 
-                <a href="#portfolio" className="text-sm font-semibold text-muted-foreground hover:text-white flex items-center gap-2 transition-colors">
-                  Ver portfólio no site <ArrowRight className="w-4 h-4" />
-                </a>
+
               </div>
             </motion.div>
           </div>
@@ -76,21 +72,11 @@ export function InstagramCTA() {
                 
                 {/* Simulated Insta Feed */}
                 <div className="w-full h-full bg-background overflow-hidden flex flex-col">
-                  {/* Header */}
-                  <div className="h-14 border-b border-border flex items-center px-4 justify-between bg-black/50 backdrop-blur-md sticky top-0 z-10">
-                    <span className="font-bold text-xs">garagemservicos</span>
-                    <Instagram className="w-4 h-4" />
-                  </div>
+
                   
                   {/* Grid */}
-                  <div className="grid grid-cols-2 gap-0.5 p-0.5 overflow-hidden">
-                     <img src={welding1} className="aspect-square object-cover" alt="Post" />
-                     <img src={wheel1} className="aspect-square object-cover" alt="Post" />
-                     <img src={heroImage} className="aspect-square object-cover col-span-2" alt="Post" />
-                     <div className="aspect-square bg-zinc-800 flex items-center justify-center">
-                        <span className="text-xs text-muted-foreground">+ posts</span>
-                     </div>
-                     <div className="aspect-square bg-zinc-900" />
+                  <div className="w-full h-full">
+                    <img src={instagramMockup} className="w-full h-full object-cover" alt="Instagram Feed" />
                   </div>
                   
                   {/* Fake buttons */}
@@ -102,15 +88,8 @@ export function InstagramCTA() {
                 </div>
              </motion.div>
 
-             {/* Floating Elements */}
-             <motion.div 
-               className="absolute -top-10 -right-10 md:right-10 w-24 h-24 bg-gradient-to-br from-primary to-yellow-600 rounded-2xl flex items-center justify-center shadow-lg transform rotate-12 z-20 border border-white/10"
-               initial={{ scale: 0, opacity: 0 }}
-               whileInView={{ scale: 1, opacity: 1 }}
-               transition={{ delay: 0.6, type: "spring" }}
-             >
-                <Smartphone className="w-10 h-10 text-white" />
-             </motion.div>
+
+
           </div>
 
         </div>
